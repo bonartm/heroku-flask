@@ -1,52 +1,53 @@
-Tutorial adpated from here: https://devcenter.heroku.com/articles/getting-started-with-python#define-config-vars
+# Getting started with Flask and Heroku
 
-1. Create a free Heroku account
-2. Have Postgres installed locally/ via docker/ via RDS
-3. Install the Heroku Command Line Interface (https://devcenter.heroku.com/articles/getting-started-with-python#set-up)
-4. Use the `heroku login` command to log in and authentificate the Heroku CLI
-5. Clone a simple Flask app from this repository
-6. Create an app on Heroku with `heroku create <my-app-name>`. This will create another git remote called `heroku` that you can use to update the app. 
+Template for deploying a flask app to heroku.
 
-    - You can allready visit your app in the browser by visitng https://<my-app-name>.herokuapp.com/ or by typing `heroku open -a <my-app-name>` into the command line
-    
-7. Now push the flask code to heroku: `git push heroku master`
-8. Visit logs via `heroku logs --tail`
-9. Create a `Procfile` that defines the command that should be executed to start the web app
+
+## Requirements
+
+- free heroku account
+- heroku cli installed and set up locally 
+
+## Instructions
+
+1. clone the repository
 
 ```bash
- web: gunicorn gettingstarted.wsgi --log-file -
+git clone https://github.com/bonartm/heroku-flask.git
+cd heroku-flask
 ```
 
-10. with `heroku ps -a <my-app-name>` you can check you rate limits and how many dynos are currently running
+2. create a new heroku app
 
-    - you can scale the number of dynos by `heroku ps:scale - a <my-app-name> web=0`. For a free account you can only have one dyno running. Free dynos sleep after halg hour of inactivity
-    
-11. add a `requirements.txt` to your app so heroku knows which packages it has to install when setting up the dyno
-12. to run the app localy type `heroku local web` or on windows `heroku local web -f Procfile.windows`
-13. add the `requests` module to the `requirements.txt` and add a new route to your app: 
-
-```python
-def index(request):
-    r = requests.get('http://httpbin.org/status/418')
-    print(r.text)
-    return HttpResponse('<pre>' + r.text + '</pre>')
+```bash
+heroku create <my-app-name>`
 ```
-14. test the changes locally and then deploy them with `git add .`, `git commit -m "demo"` and `git push heroku master`, see if it worked by reloading your app `heroku open`
 
-## Config Variables
+3. test the app locally
 
-- Access environment variables via the `os.environ.get`  function
-- Environment variables are set based on the content of the `.env` file in the local directory 
-- To set config vars on heroku type in `heroku config:set TIMES=2`
-- You can view the config variables via `heroku config`
+```bash
+heroku local web
+```
 
-## Database
+on windows use 
 
-- Heroku automatically setups a postgresql database. Check it out by typing `heroku addons`, `heroku config` and `heroku pg`
-- The hostname of your database is: `https://<my-app-name>.herokuapp.com/db`
+```bash
+heroku local web -f Procfile.windows
+```
+
+4. push code to heroku
+
+```bash
+git push heroku master
+```
+
+5. open website in browser
+
+```bash
+heroku open
+```
 
 
+## Further Ressources
 
-
-
-
+- [Official python heroku tutorial](https://devcenter.heroku.com/articles/getting-started-with-python) using Djano
