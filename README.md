@@ -1,6 +1,6 @@
 # Getting started with Flask and Heroku
 
-Template for deploying a flask app to heroku.
+Template for deploying a flask app to heroku. Created for the [Spiced Data Science Bootcamp](https://www.spiced-academy.com/en/program/data-science).
 
 
 ## Requirements
